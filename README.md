@@ -35,7 +35,7 @@ Method=Get
 http://127.0.0.1:9901/getdata
 
 Endpoint to get data from db page wise 
-please change page number to get data for each page and default page number is 1
+#please change page number to get data for each page and default page number is 1
 
 http://127.0.0.1:9901/getdata?page=2
 
