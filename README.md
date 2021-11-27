@@ -19,7 +19,7 @@ Step 4:
 End point to insert data in to db
 
 
-method = post
+method = post ########
 http://127.0.0.1:9901/insert
 
 Payload ############
@@ -31,7 +31,7 @@ please change id key in payload for each request
 
 Step 5:
 Endpoint to get data from db
-Method=Get
+Method=Get #######
 http://127.0.0.1:9901/getdata
 
 Endpoint to get data from db page wise 
