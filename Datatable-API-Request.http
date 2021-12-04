@@ -1,0 +1,62 @@
+@host=http://127.0.0.1:9901
+
+
+###################
+# 1 GET Data from database for admin
+#
+# @name getData
+
+GET {{host}}/total_data HTTP/1.1 
+
+
+
+GET {{host}}/getdata?page=4 HTTP/1.1
+Content-Type: application/json
+
+{
+    "draw":1,
+    "columns":[
+        {
+            "data":"id",
+            "name":"",
+            "searchable":true,
+            "orderable":true,
+            "search":{
+                "value":"",
+                "regex":false
+            }
+        },
+        {
+            "data":"Total_disinfection",
+            "name":"",
+            "searchable":true,
+            "orderable":true,
+            "search":{
+                "value":"",
+                "regex":false
+            }
+        },
+        {
+            "data":"Start_date_time",
+            "name":"",
+            "searchable":true,
+            "orderable":true,
+            "search":{
+                "value":"",
+                "regex":false
+            }
+        },
+        ...,
+    ],
+    "order":[
+        {"column":0,"dir":"asc"}
+    ],
+    "start":0,
+    "length":10,
+    "search":{
+        "value":"",
+        "regex":false
+    },
+    "minNumber":1,
+    "maxNumber":10
+}

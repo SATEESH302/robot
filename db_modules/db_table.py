@@ -45,6 +45,14 @@ class table():
             cursor.execute(mySql_insert_query,(0,perpage))
             # fetching all records from database
             data = cursor.fetchall()
+            total_data = {'data': []}
+            for k in range(len(data)):
+                records = []
+                for j in range(len(data[k])):
+                    records.append(data[k][j])
+                total_data['data'].append(records)
+            total_data['recordsTotal'] = len(total_data['data'])
+            total_data['recordsFiltered'] = len(total_data['data'])
             print(data)
             return data
         else:
@@ -54,5 +62,31 @@ class table():
             cursor.execute(mySql_insert_query,(startpage, perpage))
             # fetching all records from database
             data = cursor.fetchall()
+            total_data = {'data': []}
+            for k in range(len(data)):
+                records = []
+                for j in range(len(data[k])):
+                    records.append(data[k][j])
+                total_data['data'].append(records)
+            total_data['recordsTotal'] = len(total_data['data'])
+            total_data['recordsFiltered'] = len(total_data['data'])
             print(data)
-            return data
+            return total_data
+
+    def get_total_data(self):
+        mySql_insert_query = "select * from samrobot"
+        cursor = self.dbconnection.cursor()
+        cursor.execute(mySql_insert_query)
+        # fetching all records from database
+        data = cursor.fetchall()
+        total_data = {'data': []}
+        for k in range(len(data)):
+            records = []
+            for j in range(len(data[k])):
+                records.append(data[k][j])
+            total_data['data'].append(records)
+        total_data['recordsTotal'] = len(total_data['data'])
+        total_data['recordsFiltered'] = len(total_data['data'])
+
+        print(total_data)
+        return total_data

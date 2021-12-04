@@ -40,4 +40,9 @@ Endpoint to get data from db page wise
 http://127.0.0.1:9901/getdata?page=2
 
 
+Get total data from db
+
+http://127.0.0.1:9901/total_data
+
+
 
