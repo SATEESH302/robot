@@ -7,14 +7,13 @@ list_of_columns=['id', 'Robot_number',\
    'End_battery_percent', 'Customer_name',\
    'Disinfection_type']
 
-def list_to_json(total):
+def list_to_json(data):
     datafinal = []
-    for i in total['data']:
+    for i in data:
         records = {}
         for k in range(len(i)):
             records[list_of_columns[k]] = i[k]
         datafinal.append(records)
-    print(datafinal)
     return datafinal
 
 

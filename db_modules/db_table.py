@@ -1,7 +1,7 @@
 import mysql.connector
 from Config.config import db_config
 import mysql.connector
-
+from utils import *
 class table():
 
     def __init__(self):
@@ -46,11 +46,13 @@ class table():
             # fetching all records from database
             data = cursor.fetchall()
             total_data = {'data': []}
-            for k in range(len(data)):
-                records = []
-                for j in range(len(data[k])):
-                    records.append(data[k][j])
-                total_data['data'].append(records)
+            # for k in range(len(data)):
+            #     records = []
+            #     for j in range(len(data[k])):
+            #         records.append(data[k][j])
+            #     total_data['data'].append(records)
+            datafinal = list_to_json(data)
+            total_data['data'] = datafinal
             total_data['recordsTotal'] = len(total_data['data'])
             total_data['recordsFiltered'] = len(total_data['data'])
             print(total_data)
@@ -63,11 +65,13 @@ class table():
             # fetching all records from database
             data = cursor.fetchall()
             total_data = {'data': []}
-            for k in range(len(data)):
-                records = []
-                for j in range(len(data[k])):
-                    records.append(data[k][j])
-                total_data['data'].append(records)
+            # for k in range(len(data)):
+            #     records = []
+            #     for j in range(len(data[k])):
+            #         records.append(data[k][j])
+            #     total_data['data'].append(records)
+            datafinal = list_to_json(data)
+            total_data['data'] = datafinal
             total_data['recordsTotal'] = len(total_data['data'])
             total_data['recordsFiltered'] = len(total_data['data'])
             print(total_data)
@@ -80,11 +84,13 @@ class table():
         # fetching all records from database
         data = cursor.fetchall()
         total_data = {'data': []}
-        for k in range(len(data)):
-            records = []
-            for j in range(len(data[k])):
-                records.append(data[k][j])
-            total_data['data'].append(records)
+        # for k in range(len(data)):
+        #     records = []
+        #     for j in range(len(data[k])):
+        #         records.append(data[k][j])
+        #     total_data['data'].append(records)
+        datafinal = list_to_json(data)
+        total_data['data'] = datafinal
         total_data['recordsTotal'] = len(total_data['data'])
         total_data['recordsFiltered'] = len(total_data['data'])
 
@@ -92,17 +98,21 @@ class table():
         return total_data
 
     def filter_data(self,filter_column_name, value):
+        c = ['id', 'Robot_number',
+                           'Room_number', 'Total_disinfection',
+                           'Start_date_time', 'End_date_time',
+                           'Normal_or_power', 'Start_battery_percent',
+                           'End_battery_percent', 'Customer_name',
+                           'Disinfection_type']
         query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value, filter_column_name)
         cursor = self.dbconnection.cursor()
         cursor.execute(query_string)
         data = cursor.fetchall()
         total_data = {'data': []}
-        for k in range(len(data)):
-            records = []
-            for j in range(len(data[k])):
-                records.append(data[k][j])
-            total_data['data'].append(records)
+        datafinal = list_to_json(data)
+        total_data['data'] = datafinal
         total_data['recordsTotal'] = len(total_data['data'])
         total_data['recordsFiltered'] = len(total_data['data'])
+        total_data['draw'] = 1
         print(total_data)
         return total_data

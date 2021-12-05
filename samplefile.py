@@ -179,8 +179,79 @@ def get_total_data(self):
 #     return total_records
 
 
-def filter_data(filter_column_name,value):
-    query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value,filter_column_name)
+# def filter_data(filter_column_name,value):
+#     query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value,filter_column_name)
+#     cursor.execute(query_string)
+#     data = cursor.fetchall()
+#     total_data = {'data': []}
+#     for k in range(len(data)):
+#         records = []
+#         for j in range(len(data[k])):
+#             records.append(data[k][j])
+#         total_data['data'].append(records)
+#     total_data['recordsTotal'] = len(total_data['data'])
+#     total_data['recordsFiltered'] = len(total_data['data'])
+#     print(total_data)
+# filter_data('Room_number',10)
+
+
+#http://127.0.0.1:9901/getdata?room=4
+c=['id', 'Robot_number',\
+   'Room_number', 'Total_disinfection', \
+    'Start_date_time', 'End_date_time', \
+   'Normal_or_power', 'Start_battery_percent', \
+   'End_battery_percent', 'Customer_name',\
+   'Disinfection_type']
+
+query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format('Room_number',4)
+cursor.execute(query_string)
+data = cursor.fetchall()
+total_data = {'data': []}
+total={}
+total['data']=data
+datafinal=[]
+for i in data:
+    records={}
+    for k in range(len(i)):
+        records[c[k]]=i[k]
+    datafinal.append(records)
+total_data['data'] = datafinal
+total_data['recordsTotal'] = len(total_data['data'])
+total_data['recordsFiltered'] = len(total_data['data'])
+total_data['draw'] = 1
+print(total_data)
+
+# for k in range(len(data)):
+#     records = []
+#     for j in range(len(data[k])):
+#         records.append(data[k][j])
+#     total_data['data'].append(records)
+# total_data['recordsTotal'] = len(total_data['data'])
+# total_data['recordsFiltered'] = len(total_data['data'])
+# print(total_data)
+# c=['id', 'Robot_number',\
+#    'Room_number', 'Total_disinfection', \
+#     'Start_date_time', 'End_date_time', \
+#    'Normal_or_power', 'Start_battery_percent', \
+#    'End_battery_percent', 'Customer_name',\
+#    'Disinfection_type']
+#
+# total={}
+# total['data']=data
+# datafinal=[]
+# for i in total['data']:
+#     records={}
+#     for k in range(len(i)):
+#         records[c[k]]=i[k]
+#     datafinal.append(records)
+# print(datafinal)
+# #
+# # print(datafinal)
+
+
+def filter_data(self, filter_column_name, value):
+    query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value, filter_column_name)
+    cursor = self.dbconnection.cursor()
     cursor.execute(query_string)
     data = cursor.fetchall()
     total_data = {'data': []}
@@ -192,7 +263,4 @@ def filter_data(filter_column_name,value):
     total_data['recordsTotal'] = len(total_data['data'])
     total_data['recordsFiltered'] = len(total_data['data'])
     print(total_data)
-filter_data('Room_number',10)
-
-
-#http://127.0.0.1:9901/getdata?room=4
+    return total_data
