@@ -158,14 +158,14 @@ def get_total_data(self):
 # print(datafinal)
 
 
-@app.route('/getdata', defaults={'page':1})
-@app.route('/getdata/page/<int:page>',methods=['POST','GET'])
-def get_data_from_db(page):
-    page=request.args.get('page')
-    alldata = data_table.fetch_data_from_db(page)
-    total_records = {"data": alldata}
-    total_records={'datafinal':list_to_json(total_records)}
-    return total_records
+# @app.route('/getdata', defaults={'page':1})
+# @app.route('/getdata/page/<int:page>',methods=['POST','GET'])
+# def get_data_from_db(page):
+#     page=request.args.get('page')
+#     alldata = data_table.fetch_data_from_db(page)
+#     total_records = {"data": alldata}
+#     total_records={'datafinal':list_to_json(total_records)}
+#     return total_records
 
 
 
@@ -177,3 +177,22 @@ def get_data_from_db(page):
 #     total_records = {"data": alldata}
 #     total_records={'datafinal':list_to_json(total_records)}
 #     return total_records
+
+
+def filter_data(filter_column_name,value):
+    query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value,filter_column_name)
+    cursor.execute(query_string)
+    data = cursor.fetchall()
+    total_data = {'data': []}
+    for k in range(len(data)):
+        records = []
+        for j in range(len(data[k])):
+            records.append(data[k][j])
+        total_data['data'].append(records)
+    total_data['recordsTotal'] = len(total_data['data'])
+    total_data['recordsFiltered'] = len(total_data['data'])
+    print(total_data)
+filter_data('Room_number',10)
+
+
+#http://127.0.0.1:9901/getdata?room=4

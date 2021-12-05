@@ -90,3 +90,19 @@ class table():
 
         print(total_data)
         return total_data
+
+    def filter_data(self,filter_column_name, value):
+        query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value, filter_column_name)
+        cursor = self.dbconnection.cursor()
+        cursor.execute(query_string)
+        data = cursor.fetchall()
+        total_data = {'data': []}
+        for k in range(len(data)):
+            records = []
+            for j in range(len(data[k])):
+                records.append(data[k][j])
+            total_data['data'].append(records)
+        total_data['recordsTotal'] = len(total_data['data'])
+        total_data['recordsFiltered'] = len(total_data['data'])
+        print(total_data)
+        return total_data

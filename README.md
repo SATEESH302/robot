@@ -44,5 +44,14 @@ Get total data from db
 
 http://127.0.0.1:9901/total_data
 
+End point for filterd_data with column_name and given value 
+
+---------------------------------------------------------------
+filter_column = give your column name to be search 
+
+value = give you value to be search in given column name
+
+http://127.0.0.1:9901/filter_data?filter_column=Room_number&value=4
+
 
 

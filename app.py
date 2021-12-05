@@ -10,7 +10,7 @@ data_table = table()
 @app.route('/insert', methods=['POST'])
 def insert_data():
     if request.method == 'POST':
-        try:
+        try: ###
             d = request.get_json()
             msg=data_table.insert_data(d)
             reutls={'message':msg}
@@ -23,7 +23,8 @@ def insert_data():
 @app.route('/getdata/page/<int:page>',methods=['POST',"GET"])
 def get_data_from_db(page):
     page=request.args.get('page')
-    print(request.method)
+    room_no=request.args.get('room')
+    print(room_no)
     if request.method == 'GET' or request.method == 'POST':
         if page is None:
             page = int(1)
@@ -36,6 +37,14 @@ def get_data_from_db(page):
 def get_total_data_db():
     if request.method == 'GET':
         data = data_table.get_total_data()
+        return data
+
+@app.route('/filter_data', methods=['GET'])
+def filter_data():
+    if request.method == 'GET':
+        filter_value = request.args.get('filter_column')
+        value=request.args.get('value')
+        data = data_table.filter_data(filter_value,value)
         return data
 
 if __name__ == '__main__':
