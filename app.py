@@ -19,14 +19,18 @@ def insert_data():
             reutls={"error":e}
             return reutls
 
-@app.route('/getdata', defaults={'page':1})
-@app.route('/getdata/page/<int:page>',methods=['POST','GET'])
+@app.route('/getdata', defaults={'page':1},methods=['POST','GET'])
+@app.route('/getdata/page/<int:page>',methods=['POST',"GET"])
 def get_data_from_db(page):
     page=request.args.get('page')
-    alldata = data_table.fetch_data_from_db(page)
-    # total_records = {"data": alldata}
-    # total_records={'datafinal':list_to_json(total_records)}
-    return alldata
+    print(request.method)
+    if request.method == 'GET' or request.method == 'POST':
+        if page is None:
+            page = int(1)
+        alldata = data_table.fetch_data_from_db(page)
+        # total_records = {"data": alldata}
+        # total_records={'datafinal':list_to_json(total_records)}
+        return alldata
 
 @app.route('/total_data', methods=['GET'])
 def get_total_data_db():

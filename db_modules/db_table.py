@@ -53,8 +53,8 @@ class table():
                 total_data['data'].append(records)
             total_data['recordsTotal'] = len(total_data['data'])
             total_data['recordsFiltered'] = len(total_data['data'])
-            print(data)
-            return data
+            print(total_data)
+            return total_data
         else:
             page=int(page)-1
             startpage=page*5
@@ -70,7 +70,7 @@ class table():
                 total_data['data'].append(records)
             total_data['recordsTotal'] = len(total_data['data'])
             total_data['recordsFiltered'] = len(total_data['data'])
-            print(data)
+            print(total_data)
             return total_data
 
     def get_total_data(self):
