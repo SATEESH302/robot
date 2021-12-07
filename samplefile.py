@@ -206,6 +206,7 @@ c=['id', 'Robot_number',\
 query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format('Room_number',4)
 cursor.execute(query_string)
 data = cursor.fetchall()
+print(len(data),'...............')
 total_data = {'data': []}
 total={}
 total['data']=data

@@ -104,6 +104,11 @@ class table():
                            'Normal_or_power', 'Start_battery_percent',
                            'End_battery_percent', 'Customer_name',
                            'Disinfection_type']
+        mySql_insert_query = "select * from samrobot"
+        cursor = self.dbconnection.cursor()
+        cursor.execute(mySql_insert_query)
+        # fetching all records from database
+        tbdata = cursor.fetchall()
         query_string = "SELECT * FROM samrobot WHERE {1} = {0}".format(value, filter_column_name)
         cursor = self.dbconnection.cursor()
         cursor.execute(query_string)
@@ -111,7 +116,7 @@ class table():
         total_data = {'data': []}
         datafinal = list_to_json(data)
         total_data['data'] = datafinal
-        total_data['recordsTotal'] = len(total_data['data'])
+        total_data['recordsTotal'] = len(tbdata)
         total_data['recordsFiltered'] = len(total_data['data'])
         total_data['draw'] = 1
         print(total_data)
