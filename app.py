@@ -1,8 +1,10 @@
 from flask import *
 from db_modules.db_table import table
 from utils import *
+from flask_cors import CORS
 
 app = Flask(__name__)
+
 
 data_table = table()
 
@@ -15,9 +17,9 @@ def insert_data():
             d = request.get_json()
             msg = data_table.insert_data(d)
             results = {'message': msg}
-            response = jsonify(results)
-            response.headers.add('Access-Control-Allow-Origin', '*')
-            return response
+            # response = jsonify(results)
+            # response.headers.add('Access-Control-Allow-Origin', '*')
+            return results
         except Exception as e:
             results = {"error": str(e)}
             response = jsonify(results)
