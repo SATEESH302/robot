@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 
-
+CORS(app)
 data_table = table()
 
 
@@ -22,9 +22,9 @@ def insert_data():
             return results
         except Exception as e:
             results = {"error": str(e)}
-            response = jsonify(results)
-            response.headers.add('Access-Control-Allow-Origin', '*')
-            return response
+            # response = jsonify(results)
+            # response.headers.add('Access-Control-Allow-Origin', '*')
+            return results
 
 
 @app.route('/getdata', defaults={'page': 1}, methods=['POST', 'GET'])
@@ -37,18 +37,18 @@ def get_data_from_db(page):
         if page is None:
             page = int(1)
         alldata = data_table.fetch_data_from_db(page)
-        response = jsonify(alldata)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+        # response = jsonify(alldata)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return alldata
 
 
 @app.route('/total_data', methods=['GET'])
 def get_total_data_db():
     if request.method == 'GET':
         data = data_table.get_total_data()
-        response = jsonify(data)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+        # response = jsonify(data)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return data
 
 
 @app.route('/filter_data', methods=['GET'])
@@ -57,9 +57,9 @@ def filter_data():
         filter_value = request.args.get('filter_column')
         value = request.args.get('value')
         data = data_table.filter_data(filter_value, value)
-        response = jsonify(data)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+        # response = jsonify(data)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return data
 
 
 if __name__ == '__main__':
