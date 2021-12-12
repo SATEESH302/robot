@@ -1,7 +1,7 @@
 from flask import *
 from db_modules.db_table import table
 from utils import *
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 
 app = Flask(__name__)
 
@@ -10,6 +10,7 @@ data_table = table()
 
 
 @app.route('/insert', methods=['POST'])
+@cross_origin()
 def insert_data():
     if request.method == 'POST':
 
@@ -29,6 +30,7 @@ def insert_data():
 
 @app.route('/getdata', defaults={'page': 1}, methods=['POST', 'GET'])
 @app.route('/getdata/page/<int:page>', methods=['POST', "GET"])
+@cross_origin()
 def get_data_from_db(page):
     page = request.args.get('page')
     room_no = request.args.get('room')
@@ -43,6 +45,7 @@ def get_data_from_db(page):
 
 
 @app.route('/total_data', methods=['GET'])
+@cross_origin()
 def get_total_data_db():
     if request.method == 'GET':
         data = data_table.get_total_data()
@@ -52,6 +55,7 @@ def get_total_data_db():
 
 
 @app.route('/filter_data', methods=['GET'])
+@cross_origin()
 def filter_data():
     if request.method == 'GET':
         filter_value = request.args.get('filter_column')
